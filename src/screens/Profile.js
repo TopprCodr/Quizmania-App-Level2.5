@@ -17,20 +17,6 @@ export default function Profile() {
         console.log("save btn clicked");
     }
 
-    //function to handle when profile pic edit btn is clicked on
-    async function handleProfilePicEditBtnClick() {
-        console.log("edit profile pic btn clicked");
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            quality: 1,
-        });
-
-        if (!result.cancelled) {
-            setHasImageChanged(true);
-            setImage(result.uri);
-        }
-    }
-
     //component rendering
     return (
         <ScrollView style={styles.container}>
