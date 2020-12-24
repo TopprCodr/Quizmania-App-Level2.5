@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
 import BasicButton from "../components/BasicButton";
+import * as ImagePicker from 'expo-image-picker';
 
 export default function Profile() {
     const [image, setImage] = useState("http://2.bp.blogspot.com/-QWj2Wq45014/TzNOfQezNqI/AAAAAAAAAIY/Lvy0m7ZtWRM/s1600/12.jpg");
@@ -17,10 +18,31 @@ export default function Profile() {
         console.log("save btn clicked");
     }
 
+    //function to handle when profile pic edit btn is clicked on
+    async function handleProfilePicEditBtnClick() {
+        console.log("edit profile pic btn clicked");
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            quality: 1,
+        });
+
+        if (!result.cancelled) {
+            setHasImageChanged(true);
+            setImage(result.uri);
+        }
+    }
+
     //component rendering
     return (
         <ScrollView style={styles.container}>
             <Text style={styles.title}>Profile</Text>
+
+            <View style={styles.imageContainer}>	
+                    <Image source={{ uri: image }} style={styles.image} />	
+                    <TouchableOpacity onPress={handleProfilePicEditBtnClick}>	
+                        <Image source={require('./edit.png')} style={styles.editIcon} />	
+                    </TouchableOpacity>	
+            </View>
 
             <View style={styles.form}>
                
