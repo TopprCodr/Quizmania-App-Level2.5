@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BasicButton from "../components/BasicButton";
+import LottieView from 'lottie-react-native';
 
 
 export default function Landing({ navigation }) {
@@ -20,6 +21,8 @@ export default function Landing({ navigation }) {
                 setIsLoading(false);
             }
 
+            this.animation.reset();
+            this.animation.play();
         })();
 
         //to prevent going back
@@ -49,7 +52,19 @@ export default function Landing({ navigation }) {
              :
             <>
              <View style={styles.animationContainer}>
-             
+               <LottieView
+                 ref={animation => {
+                      this.animation = animation;
+                     }}
+                     style={{
+                            width: 400,
+                            height: 400,
+                            backgroundColor: 'white',
+                            }}
+                       source={require('../../assets/logo5.json')}
+     // OR find more Lottie files @ https://lottiefiles.com/featured
+     // Just click the one you like, place that file in the 'assets' folder to the left, and replace the above 'require' statement
+               />
                         </View>
                         <Text style={styles.title}>Quizmania</Text>
                         <View style={styles.divider}></View>
